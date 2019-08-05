@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181223200158) do
+ActiveRecord::Schema.define(version: 20190805195959) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,27 @@ ActiveRecord::Schema.define(version: 20181223200158) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_games_on_user_id"
+  end
+
+  create_table "match_performers", force: :cascade do |t|
+    t.bigint "performer_id"
+    t.bigint "match_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["match_id"], name: "index_match_performers_on_match_id"
+    t.index ["performer_id"], name: "index_match_performers_on_performer_id"
+  end
+
+  create_table "matches", force: :cascade do |t|
+    t.integer "match_rating"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "performers", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -40,4 +61,6 @@ ActiveRecord::Schema.define(version: 20181223200158) do
   end
 
   add_foreign_key "games", "users"
+  add_foreign_key "match_performers", "matches"
+  add_foreign_key "match_performers", "performers"
 end
