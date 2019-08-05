@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190805195959) do
+ActiveRecord::Schema.define(version: 20190805220450) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,12 +28,25 @@ ActiveRecord::Schema.define(version: 20190805195959) do
     t.integer "match_rating"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "promotion_id"
+    t.index ["promotion_id"], name: "index_matches_on_promotion_id"
   end
 
   create_table "performers", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "promotion_id"
+    t.index ["promotion_id"], name: "index_performers_on_promotion_id"
+  end
+
+  create_table "promotions", force: :cascade do |t|
+    t.string "name"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "cash"
+    t.index ["user_id"], name: "index_promotions_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -55,4 +68,7 @@ ActiveRecord::Schema.define(version: 20190805195959) do
 
   add_foreign_key "match_performers", "matches"
   add_foreign_key "match_performers", "performers"
+  add_foreign_key "matches", "promotions"
+  add_foreign_key "performers", "promotions"
+  add_foreign_key "promotions", "users"
 end

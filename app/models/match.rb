@@ -1,4 +1,5 @@
 class Match < ApplicationRecord
+  belongs_to :promotion
   has_many :match_performers
 
   def perform_match

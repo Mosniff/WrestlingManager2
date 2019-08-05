@@ -1,12 +1,12 @@
 FactoryBot.define do
   
-  # factory :user do
-  #   username "Barvis"
-  #   email "test@test.com"
-  #   password "123456"
-  # end
+  factory :user do
+    email { Faker::Internet.safe_email }
+    password { "123456" }
+  end
 
   factory :match do
+    promotion
   end
 
   factory :performer do
@@ -15,5 +15,9 @@ FactoryBot.define do
   factory :match_performer do
     match
     performer
+  end
+
+  factory :promotion do
+    user
   end
 end

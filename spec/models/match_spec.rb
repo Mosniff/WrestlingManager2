@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Match, :type => :model do
 
+  it { should belong_to(:promotion) }
+
   before(:all) do
     @match1 = create(:match)
 
@@ -27,9 +29,10 @@ RSpec.describe Match, :type => :model do
       # %%TODO, create match making logic based on:
       # performer skill
       # performer chemistry
-      # performer types
-      # story/build, includes championships, repition etc
+      # performer complimentary styles and body types
+      # story/build, includes championships, repetion, match result etc
       # match types
+      # match outcomes and spots
       # place on show
       # augment/complexify logic for team-based matches
       # augment/complexify logic for multi-man matches

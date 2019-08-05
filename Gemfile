@@ -51,6 +51,8 @@ end
 group :test do 
   gem 'tsuite'
   gem 'pry'
+  gem 'shoulda-matchers'
+  gem 'faker'
 end
 
 gem 'devise'
