@@ -20,4 +20,11 @@ FactoryBot.define do
   factory :promotion do
     user
   end
+
+  factory :championship do
+  end
+
+  factory :title_reign do
+    championship
+  end
 end

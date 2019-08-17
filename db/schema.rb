@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190805233400) do
+ActiveRecord::Schema.define(version: 20190817122317) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "championships", force: :cascade do |t|
+    t.string "name"
+    t.integer "prestige"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "match_performers", force: :cascade do |t|
     t.bigint "performer_id"
@@ -58,6 +65,18 @@ ActiveRecord::Schema.define(version: 20190805233400) do
     t.index ["user_id"], name: "index_promotions_on_user_id"
   end
 
+  create_table "title_reigns", force: :cascade do |t|
+    t.date "start_date"
+    t.date "end_date"
+    t.bigint "performer_id"
+    t.bigint "championship_id"
+    t.boolean "is_current", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["championship_id"], name: "index_title_reigns_on_championship_id"
+    t.index ["performer_id"], name: "index_title_reigns_on_performer_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -80,4 +99,6 @@ ActiveRecord::Schema.define(version: 20190805233400) do
   add_foreign_key "matches", "promotions"
   add_foreign_key "performers", "promotions"
   add_foreign_key "promotions", "users"
+  add_foreign_key "title_reigns", "championships"
+  add_foreign_key "title_reigns", "performers"
 end

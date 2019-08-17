@@ -1,5 +1,6 @@
 class Performer < ApplicationRecord
   belongs_to :promotion, optional: true
+  has_many :title_reigns
 
   after_create :initialize_new_performer_attributes
 
